@@ -43,57 +43,59 @@ def move_player(playerobj, dx, dy, boxobj):
         next_box_pos = playerobj.move(dx, dy)
 
     # here's the full code
-    def main():
-        pg.init()
-        screen = pg.display.set_mode((640, 480))
 
-        player = load_image("player1.gif")
-        background = load_image("liquid.bmp")
-        box = load_image("box.jpeg")
 
-        # scale the background image so that it fills the window and
-        #   successfully overwrites the old sprite position.
-        # background = pg.transform.scale2x(background)
-        # background = pg.transform.scale2x(background)
-        background = pg.transform.scale(background, [640, 480])
-        player = pg.transform.scale(player, [space_unit, space_unit])
-        box = pg.transform.scale(box, [space_unit, space_unit])
-        screen.blit(background, (0, 0))
+def main():
+    pg.init()
+    screen = pg.display.set_mode((640, 480))
 
-        playerobj = GameObject(player, 0, 0)
-        boxobj = GameObject(box, 100, 100)
-        # objects = []
-        # for x in range(10):
-        #     o = GameObject(player, x * 40, x)
-        #     objects.append(o)
+    player = load_image("player1.gif")
+    background = load_image("liquid.bmp")
+    box = load_image("box.jpeg")
 
-        while 1:
-            screen.blit(background, playerobj.pos, playerobj.pos)
-            k = pg.key.get_pressed()
-            for event in pg.event.get():
-                if event.type == pg.KEYDOWN:
-                    if event.key == pg.K_UP:
-                        move_player(playerobj, 0, -space_unit, boxobj)
-                    elif event.key == pg.K_RIGHT:
-                        # 右方向键则加一
-                        move_player(playerobj, space_unit, 0, boxobj)
-                    elif event.key == pg.K_LEFT:
-                        move_player(playerobj, -space_unit, 0, boxobj)
-                    elif event.key == pg.K_DOWN:
-                        move_player(playerobj, 0, space_unit, boxobj)
+    # scale the background image so that it fills the window and
+    #   successfully overwrites the old sprite position.
+    # background = pg.transform.scale2x(background)
+    # background = pg.transform.scale2x(background)
+    background = pg.transform.scale(background, [640, 480])
+    player = pg.transform.scale(player, [space_unit, space_unit])
+    box = pg.transform.scale(box, [space_unit, space_unit])
+    screen.blit(background, (0, 0))
+    playerobj = GameObject(player, 0, 0)
+    boxobj = GameObject(box, 100, 100)
+    # objects = []
+    # for x in range(10):
+    #     o = GameObject(player, x * 40, x)
+    #     objects.append(o)
 
-                if event.type == pg.QUIT:
-                    return
-            # playerobj.move()
-            screen.blit(playerobj.image, playerobj.pos)
-            screen.blit(boxobj.image, boxobj.pos)
-            # for o in objects:
-            #     screen.blit(background, o.pos, o.pos)
-            # for o in objects:
-            #     o.move()
-            #     screen.blit(o.image, o.pos)
+    while 1:
+        screen.blit(background, playerobj.pos, playerobj.pos)
+        k = pg.key.get_pressed()
+        for event in pg.event.get():
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_UP:
+                    move_player(playerobj, 0, -space_unit, boxobj)
+                elif event.key == pg.K_RIGHT:
+                    # 右方向键则加一
+                    move_player(playerobj, space_unit, 0, boxobj)
+                elif event.key == pg.K_LEFT:
+                    move_player(playerobj, -space_unit, 0, boxobj)
+                elif event.key == pg.K_DOWN:
+                    move_player(playerobj, 0, space_unit, boxobj)
 
-            pg.display.update()
+            if event.type == pg.QUIT:
+                return
+        # playerobj.move()
+        screen.blit(playerobj.image, playerobj.pos)
+        screen.blit(boxobj.image, boxobj.pos)
+        # for o in objects:
+        #     screen.blit(background, o.pos, o.pos)
+        # for o in objects:
+        #     o.move()
+        #     screen.blit(o.image, o.pos)
 
-    if __name__ == "__main__":
-        main()
+        pg.display.update()
+
+
+if __name__ == "__main__":
+    main()
