@@ -12,21 +12,14 @@ import pygame as pg
 
 main_dir = os.path.split(os.path.abspath(__file__))[0]
 space_unit = 50
-
-
+screen = None
+background = None
 # our game object class
 class GameObject:
     def __init__(self, image, x, y):
         self.image = image
         self.pos = image.get_rect().move(x, y)
 
-    def move(self):
-        self.pos = self.pos.move(self.speed, 0)
-        if self.pos.right > 600:
-            self.pos.left = 0
-
-    def move_up(self):
-        self.pos = self.pos.move(0, self.speed)
 
 
 # quick function to load an image
@@ -38,14 +31,18 @@ def load_image(name):
 def move_player(playerobj, dx, dy, boxobj):
     next_pos = playerobj.pos.move(dx, dy)
     if boxobj.pos != next_pos:
+        screen.blit(background, playerobj.pos, playerobj.pos)
         playerobj.pos = next_pos
+
     else:
-        next_box_pos = playerobj.move(dx, dy)
+        next_box_pos = boxobj.pos.move(dx, dy)
+        boxobj.pos = next_box_pos
 
     # here's the full code
 
 
 def main():
+    global screen,background
     pg.init()
     screen = pg.display.set_mode((640, 480))
 
@@ -69,8 +66,7 @@ def main():
     #     objects.append(o)
 
     while 1:
-        screen.blit(background, playerobj.pos, playerobj.pos)
-        k = pg.key.get_pressed()
+
         for event in pg.event.get():
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_UP:
