@@ -33,11 +33,13 @@ def move_player(playerobj, dx, dy, boxobj):
     if boxobj.pos != next_pos:
         screen.blit(background, playerobj.pos, playerobj.pos)
         playerobj.pos = next_pos
+        screen.blit(playerobj.image, playerobj.pos)
 
     else:
         next_box_pos = boxobj.pos.move(dx, dy)
+        screen.blit(background, boxobj.pos, boxobj.pos)
         boxobj.pos = next_box_pos
-
+        screen.blit(boxobj.image, boxobj.pos)
     # here's the full code
 
 
@@ -64,7 +66,8 @@ def main():
     # for x in range(10):
     #     o = GameObject(player, x * 40, x)
     #     objects.append(o)
-
+    screen.blit(boxobj.image, boxobj.pos)
+    screen.blit(playerobj.image, playerobj.pos)
     while 1:
 
         for event in pg.event.get():
@@ -82,8 +85,7 @@ def main():
             if event.type == pg.QUIT:
                 return
         # playerobj.move()
-        screen.blit(playerobj.image, playerobj.pos)
-        screen.blit(boxobj.image, boxobj.pos)
+
         # for o in objects:
         #     screen.blit(background, o.pos, o.pos)
         # for o in objects:
