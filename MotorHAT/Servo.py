@@ -193,6 +193,7 @@ def Re_Servo():
 
 
 # -------------------机械臂运动函数定义----------------
+
 def ClampOpen():  # 手爪打开
     write(myservo1, ms1MAX)
     time.sleep(0.3)
@@ -210,11 +211,35 @@ def BottomLeft():  # 底座左转
     write(myservo4, ms4currentAngle)
 
 
+def Bottom(direct):  # 底座右转
+    global ms4currentAngle
+
+    ms4currentAngle = direct
+    if ms4currentAngle < ms4MIN:
+        ms4currentAngle = ms4MIN
+    if ms4currentAngle > ms4MAX:
+        ms4currentAngle = ms4MAX
+
+    write(myservo4, ms4currentAngle)
+
 def BottomRight():  # 底座右转
     global ms4currentAngle
     if (ms4currentAngle - delta_bottom) > ms4MIN:
         ms4currentAngle -= delta_bottom
     write(myservo4, ms4currentAngle)
+
+
+
+
+def Arm_A(height):  # 上臂舵机向上
+    global ms2currentAngle
+    ms2currentAngle = height
+    if ms2currentAngle < ms2MIN:
+        ms2currentAngle = ms2MIN
+    if ms2currentAngle > ms2MAX:
+        ms2currentAngle = ms2MAX
+
+    write(myservo2, ms2currentAngle)
 
 
 def Arm_A_Up():  # 上臂舵机向上
@@ -230,6 +255,15 @@ def Arm_A_Down():  # 上臂舵机向下
         ms2currentAngle -= delta
     write(myservo2, ms2currentAngle)
 
+def Arm_B(height):  # 上臂舵机向上
+    global ms3currentAngle
+    ms3currentAngle = height
+    if ms3currentAngle < ms3MIN:
+        ms3currentAngle = ms3MIN
+    if ms3currentAngle > ms3MAX:
+        ms3currentAngle = ms3MAX
+
+    write(myservo3, ms3currentAngle)
 
 def Arm_B_Up():  # 下臂舵机向上
     global ms3currentAngle
